@@ -13,7 +13,7 @@ import toast from "react-hot-toast";
 const SignUpPage = () => {
 	const [formData, setFormData] = useState({
 		email: "",
-		username: "",
+		userName: "",
 		fullName: "",
 		password: "",
 	});
@@ -21,20 +21,33 @@ const SignUpPage = () => {
 	const queryClient = useQueryClient();
 
 	const { mutate, isError, isPending, error } = useMutation({
-		mutationFn: async ({ email, username, fullName, password }) => {
+		mutationFn: async ({ email, userName, fullName, password }) => {
 			try {
 				const res = await fetch("/api/auth/signup", {
 					method: "POST",
 					headers: {
 						"Content-Type": "application/json",
 					},
-					body: JSON.stringify({ email, username, fullName, password }),
+					body: JSON.stringify({ email, userName, fullName, password }),
 				});
 
-				const data = await res.json();
-				if (!res.ok) throw new Error(data.error || "Failed to create account");
-				console.log(data);
-				return data;
+				// const data = await res.json();
+				// if (!res.ok) throw new Error(data.error || "Failed to create account");
+				// console.log(data);
+				// return data;
+				// Check if the response is JSON
+                const contentType = res.headers.get("content-type");
+                let data;
+                if (contentType && contentType.includes("application/json")) {
+                    data = await res.json();
+                } else {
+                    const text = await res.text(); // Parse as plain text if not JSON
+                    throw new Error(text || "Unexpected response format");
+                }
+
+                if (!res.ok) throw new Error(data.error || "Failed to create account");
+                console.log(data);
+                return data;
 			} catch (error) {
 				console.error(error);
 				throw error;
@@ -85,10 +98,10 @@ const SignUpPage = () => {
 							<input
 								type='text'
 								className='grow '
-								placeholder='Username'
-								name='username'
+								placeholder='UserName'
+								name='userName'
 								onChange={handleInputChange}
-								value={formData.username}
+								value={formData.userName}
 							/>
 						</label>
 						<label className='input input-bordered rounded flex items-center gap-2 flex-1'>
