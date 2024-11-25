@@ -28,7 +28,9 @@ const CreatePost = () => {
 					},
 					body: JSON.stringify({ text, img }),
 				});
+
 				const data = await res.json();
+
 				if (!res.ok) {
 					throw new Error(data.error || "Something went wrong");
 				}
@@ -46,11 +48,40 @@ const CreatePost = () => {
 		},
 	});
 
-	const handleSubmit = (e) => {
+	// const handleSubmit = (e) => {
+	// 	e.preventDefault();
+	// 	createPost({ text, img });
+	// };
+
+	const handleSubmit = async (e) => {
 		e.preventDefault();
+	
+		// Check for hate speech using ChatGPT API
+		try {
+			const res = await fetch("/api/hate-speech-detection", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+				},
+				body: JSON.stringify({ text }),
+			});
+	
+			const result = await res.json();
+	
+			if (!res.ok || result.flag === -1) {
+				toast.error(`Cannot post: Hate speech detected with words - ${result.flaggedWords.join(", ")}`);
+				return;
+			}
+		} catch (err) {
+			toast.error("Error in hate speech detection. Try again later.");
+			return;
+		}
+	
+		// Proceed to create post if no hate speech is detected
 		createPost({ text, img });
 	};
 
+	
 	const handleImgChange = (e) => {
 		const file = e.target.files[0];
 		if (file) {

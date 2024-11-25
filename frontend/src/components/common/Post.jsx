@@ -15,6 +15,8 @@ const Post = ({ post }) => {
 	const [comment, setComment] = useState("");
 	//getting permissions
 	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
+
+	
 	 
 	const queryClient = useQueryClient();
 	const postOwner = post.user;

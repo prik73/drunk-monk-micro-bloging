@@ -10,6 +10,9 @@ import userRoutes from './routes/user.routes.js'
 import postRoutes from './routes/post.route.js'
 import notificationRoutes from "./routes/notification.route.js";
 import cors from 'cors'
+import hateSpeechRoutes from './routes/hateSpeechDetection.route.js';
+
+
 const app = express();
 
 app.use(cors({
@@ -41,6 +44,7 @@ app.use("/api/auth", authRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/posts", postRoutes);
 app.use("/api/notifications", notificationRoutes);
+app.use("/api/hate-speech-detection", hateSpeechRoutes);
 
 app.listen(PORT, ()=>{
     console.log(`hello on ${PORT}`)
