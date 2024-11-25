@@ -16,7 +16,7 @@ const Post = ({ post }) => {
 	//getting permissions
 	const { data: authUser } = useQuery({ queryKey: ["authUser"] });
 
-	
+
 	 
 	const queryClient = useQueryClient();
 	const postOwner = post.user;
@@ -24,7 +24,7 @@ const Post = ({ post }) => {
 
 	const isMyPost = authUser._id === post.user._id;
 
-	// const formattedDate = formatPostDate(post.createdAt);
+	const formattedDate = formatPostDate(post.createdAt);
 
 	const { mutate: deletePost, isPending: isDeleting } = useMutation({
 		mutationFn: async () => {
@@ -143,7 +143,7 @@ const Post = ({ post }) => {
 						<span className='text-gray-700 flex gap-1 text-sm'>
 							<Link to={`/profile/${postOwner.username}`}>@{postOwner.username}</Link>
 							<span>·</span>
-							{/* <span>{formattedDate}</span> */}
+							<span>{formattedDate}</span>
 						</span>
 
 						{/* //delete icone */}
