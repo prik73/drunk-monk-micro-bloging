@@ -1,9 +1,13 @@
 import express from 'express';
+import path from "path";
 const router = express.Router();
 import OpenAI from "openai";
 import dotenv from 'dotenv';
 
+
 dotenv.config();
+console.log("Loaded API Key:", process.env.OPENAI_API_KEY ? "Exists" : "Missing");
+
 
 const openai = new OpenAI({
     apiKey: process.env.OPENAI_API_KEY,
