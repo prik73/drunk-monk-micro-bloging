@@ -55,6 +55,8 @@ const ProfilePage = () => {
 
 	const isMyProfile = authUser._id === user?._id;
 	const memberSinceDate = formatMemberSinceDate(user?.createdAt);
+
+	//in case when user follows another user on hteir profile... handles that change
 	const amIFollowing = authUser?.following.includes(user?._id);
 
 	const handleImgChange = (e, state) => {
@@ -137,6 +139,9 @@ const ProfilePage = () => {
 								</div>
 							</div>
 							<div className='flex justify-end px-4 mt-5'>
+								
+								
+								{/* passsing as prop */}
 								{isMyProfile && <EditProfileModal authUser={authUser} />}
 								{!isMyProfile && (
 									<button
@@ -148,6 +153,8 @@ const ProfilePage = () => {
 										{!isPending && !amIFollowing && "Follow"}
 									</button>
 								)}
+
+								{/* //still buggin --- using mutateAsync will solve this*/}
 								{(coverImg || profileImg) && (
 									<button
 										className='btn btn-primary rounded-full btn-sm text-white px-4 ml-2'
@@ -180,7 +187,7 @@ const ProfilePage = () => {
 													rel='noreferrer'
 													className='text-sm text-blue-500 hover:underline'
 												>
-													{/* Updated this after recording the video. I forgot to update this while recording, sorry, thx. */}
+													{/* Updated this after . I forgot to update this while recording, sorry, thx. */}
 													{user?.link}
 												</a>
 											</>

@@ -18,6 +18,9 @@ const EditProfileModal = ({ authUser }) => {
 		setFormData({ ...formData, [e.target.name]: e.target.value });
 	};
 
+
+	//useEffect for getting default values
+
 	useEffect(() => {
 		if (authUser) {
 			setFormData({
