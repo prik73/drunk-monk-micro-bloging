@@ -59,21 +59,17 @@ const LoginPage = () => {
 
 	return (
 		<div className='max-w-screen-xl mx-auto flex h-screen'>
-			<div className='flex-1 hidden lg:flex items-center  justify-center'>
-				<XSvg className='lg:w-2/3 fill-white' />
+			<div className="bg-neutral-900 border border-neutral-700 text-white text-sm p-4 rounded-xl shadow w-full max-w-sm">
+  				<p className="font-semibold text-white mb-1">🎯 Demo Credentials</p>
+				<p>
+					<span className="font-medium">Username:</span> <code className="text-gray-300">admin_test</code><br />
+					<span className="font-medium">Password:</span> <code className="text-gray-300">12345678</code>
+				</p>
+				<p className="mt-2 text-gray-400">
+					👉 Use these credentials to test the platform.<br />
+					Try posting <span className="text-white font-semibold">hate speech, slurs, or abuse</span> — our system will detect and block it.
+				</p>
 			</div>
-			<div className='flex-1 flex flex-col justify-center items-center'>
-				<div className="bg-white text-black p-4 rounded-lg mb-6 max-w-md text-sm shadow-md">
-    <h2 className="text-lg font-semibold mb-2">🎯 Demo Credentials</h2>
-    <p>
-      <strong>Username:</strong> <code>admin_test</code><br />
-      <strong>Password:</strong> <code>12345678</code>
-    </p>
-    <p className="mt-2">
-      👉 Log in using these credentials to test the platform.
-      Try posting <span className="font-semibold">offensive, abusive, or hateful content</span> — our system will detect and handle it automatically.
-    </p>
-  </div>
 				<form className='flex gap-4 flex-col' onSubmit={handleSubmit}>
 					<XSvg className='w-24 lg:hidden fill-white' />
 					<h1 className='text-4xl font-extrabold text-white'>{"Let's"} go.</h1>
